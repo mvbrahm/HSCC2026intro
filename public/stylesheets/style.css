@@ -21,13 +21,13 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: var(--link-color);
 }
 
 table {
-  border : 2px solid black;
+  border : 2px solid var(--accent-color);
 }
 
 td,th {
-  border: 1px solid rgb(255, 0, 255);
+  border: 1px solid var(--accent-color);
 }
