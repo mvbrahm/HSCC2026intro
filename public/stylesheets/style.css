@@ -26,8 +26,35 @@ a {
 
 table {
   border : 2px solid var(--accent-color);
+  margin-bottom: 1rem;
 }
 
 td,th {
   border: 1px solid var(--accent-color);
+  padding: 0rem 0.5rem 0rem 0.5rem;
 }
+
+#bdpahistory, #htmltags, #numconversion {
+  background-color: var(--secondary-bg-color-dm);
+  padding: 1.5rem;
+  border: 1px var(--accent-color) solid;
+  margin: 1.5rem;
+}
+
+.linkssection {
+  background-color: var(--secondary-bg-color-dm);
+  border: 1px var(--accent-color) solid;
+  margin: 1.5rem;
+}
+
+.linkssection ul {
+  margin-top: 1rem;
+}
+
+.nav-link {
+  color:var(--primary-text-color-dm);
+}
+
+
+
+
