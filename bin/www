@@ -88,12 +88,12 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
-  
+
   // Automatically open browser
   var url = 'http://localhost:' + port;
   console.log('Server started on ' + url);
   console.log('Opening browser...');
-  
+
   exec('"$BROWSER" ' + url, (error) => {
     if (error) {
       console.log('Could not automatically open browser. Please visit ' + url + ' manually.');
