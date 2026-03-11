@@ -1,34 +1,59 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <!-- Including head partial -->
-    <%- include('./partials/head') -%> 
-  </head>
-  <body>
-    <%- include('./partials/navmenu') -%>
+
+<head>
+  <!-- Including head partial -->
+  <%- include('./partials/head') -%>
+</head>
+
+<body>
+  <%- include('./partials/navmenu') -%>
     <h2>Create new BDPA account below</h2>
     <!-- <form action="/register" method="POST"> -->
-    <form action ="/register" method = "POST">
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required><br><br>
+    <div id="registerform">
+      <form action="/register" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
 
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required><br><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
 
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required minlength="8"
+          title="must contain at least 8 characters"><br><br>
 
-      <select name="state">
-        <option value="">Select your state</option>
-        <option value="AL">Alabama</option>
-        <option value="AK">Alaska</option>
-        <option value="AZ">Arizona</option>
-        <option value="AR">Arkansas</option>
-      </select><br><br>
+        <label for="" age">Age:</label>
+        <input type="number" id="age" name="age" min="13" max="120"><br><br>
 
-      <textarea name="bio"></textarea><br><br>
+        <label for="birthday">Birthday:</label>
+        <input type="date" id="birthday" name="birthday"><br><br>
 
+        <label for="interests">Interests:</label><br>
+        <input type="checkbox" name="interests" value="games"> Games
+        <input type="checkbox" name="interests" value="ai"> AI
+        <input type="checkbox" name="interests" value="web"> Web Dev<br><br>
 
-      <button type="submit">Register</button>
-  </body>
+        <label for="grade">Grade:</label><br>
+        <input type="radio" name="grade" value="9"> 9
+        <input type="radio" name="grade" value="10"> 10
+        <input type="radio" name="grade" value="11"> 11
+        <input type="radio" name="grade" value="12"> 12<br><br>
+
+        <label for="state">State:</label><br>
+        <select name="state">
+          <option value="AL">Alabama</option>
+          <option value="AK">Alaska</option>
+          <option value="AZ">Arizona</option>
+          <option value="AR">Arkansas</option>
+          <option value="WI">Wisconsin</option>
+        </select><br><br>
+
+        <label for="bio">Short Bio:</label><br>
+        <textarea name="bio"></textarea><br><br>
+
+        <button type="submit">Register</button>
+      </form>
+    </div>
+</body>
+
 </html>

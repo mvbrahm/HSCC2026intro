@@ -34,7 +34,7 @@ td,th {
   padding: 0rem 0.5rem 0rem 0.5rem;
 }
 
-#bdpahistory, #htmltags, #numconversion {
+#bdpahistory, #htmltags, #numconversion, #registerform {
   background-color: var(--secondary-bg-color-dm);
   padding: 1.5rem;
   border: 1px var(--accent-color) solid;
