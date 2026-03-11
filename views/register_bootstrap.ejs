@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Including head partial -->
+    <%- include('./partials/head') -%>
+</head>
+
+<body>
+    <%- include('./partials/navmenu') -%>
+
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h2 class="card-title text-center mb-4">Create New BDPA Account</h2>
+
+                            <form action="/register" method="POST">
+                                <!-- Username -->
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="username" name="username" required>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+
+                                <!-- Password -->
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password" required
+                                        minlength="8">
+                                    <div class="form-text">Must be at least 8 characters long.</div>
+                                </div>
+
+                                <!-- Age -->
+                                <div class="mb-3">
+                                    <label for="age" class="form-label">Age</label>
+                                    <input type="number" class="form-control" id="age" name="age" min="13" max="120">
+                                </div>
+
+                                <!-- Birthday -->
+                                <div class="mb-3">
+                                    <label for="birthday" class="form-label">Birthday</label>
+                                    <input type="date" class="form-control" id="birthday" name="birthday">
+                                </div>
+
+                                <!-- Interests (Checkboxes) -->
+                                <div class="mb-3">
+                                    <label class="form-label">Interests</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="interests" value="games"
+                                            id="games">
+                                        <label class="form-check-label" for="games">Games</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="interests" value="ai"
+                                            id="ai">
+                                        <label class="form-check-label" for="ai">AI</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="interests" value="web"
+                                            id="web">
+                                        <label class="form-check-label" for="web">Web Development</label>
+                                    </div>
+                                </div>
+
+                                <!-- Grade (Radio Buttons) -->
+                                <div class="mb-3">
+                                    <label class="form-label">Grade</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="grade" value="9" id="grade9">
+                                        <label class="form-check-label" for="grade9">9th Grade</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="grade" value="10"
+                                            id="grade10">
+                                        <label class="form-check-label" for="grade10">10th Grade</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="grade" value="11"
+                                            id="grade11">
+                                        <label class="form-check-label" for="grade11">11th Grade</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="grade" value="12"
+                                            id="grade12">
+                                        <label class="form-check-label" for="grade12">12th Grade</label>
+                                    </div>
+                                </div>
+
+                                <!-- State (Select) -->
+                                <div class="mb-3">
+                                    <label for="state" class="form-label">State</label>
+                                    <select class="form-select" id="state" name="state">
+                                        <option value="">Choose...</option>
+                                        <option value="AL">Alabama</option>
+                                        <option value="AK">Alaska</option>
+                                        <option value="AZ">Arizona</option>
+                                        <option value="AR">Arkansas</option>
+                                        <option value="CA">California</option>
+                                        <option value="CO">Colorado</option>
+                                        <option value="CT">Connecticut</option>
+                                        <option value="DE">Delaware</option>
+                                        <option value="FL">Florida</option>
+                                        <option value="GA">Georgia</option>
+                                        <option value="WI">Wisconsin</option>
+                                    </select>
+                                </div>
+
+                                <!-- Bio (Textarea) -->
+                                <div class="mb-3">
+                                    <label for="bio" class="form-label">Short Bio</label>
+                                    <textarea class="form-control" id="bio" name="bio" rows="3"
+                                        placeholder="Tell us about yourself..."></textarea>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+</body>
+
+</html>
