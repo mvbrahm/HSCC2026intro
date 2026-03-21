@@ -3,16 +3,23 @@
   <head>
     <!-- Including head partial -->
     <%- include('./partials/head') -%> 
+    <script src="/javascripts/registerscript.js"></script> 
   </head>
   <body>
     <%- include('./partials/navmenu') -%>
+
     
     <!-- This h1 tag has embedded Javascript passing a title variable -->
     <h1><%= title %></h1>
 <form action="/register" method="post">
 <label for="username">username:</label> <input id="username" name="username" type="text"><br><br>
 <label for="email">email:</label> <input id="email" name="email" type="email"><br><br>
-<label for="password">password:</label> <input id="password" name="password" type="password"><br><br>
+<label for="password">password:</label> <input id="password" name="password" type="password">
+
+Password strength:
+<span id="pwstrength"> Weak </span>
+
+<br><br>
 <label for="birthdate">birthdate:</label> <input id="birthdate" name="birthdate" type="date"><br><br>
 <label for="age">age:</label> <input id="age" name="age" min="10" max="100"  type="number"><br><br>
 <label for="interests">interests:</label> <br>
