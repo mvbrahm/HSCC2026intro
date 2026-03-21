@@ -19,3 +19,15 @@ function updatePasswordStrength(e){
     }
 }
 
+function testFormValidate(){
+   var pwlength=pwinput.value.length; 
+   if (pwlength<=10){
+       alert("Password must be more than 10 characters in length");
+       return false;
+   }
+   if (pwinput.value.includes(" ")){
+       alert("Spaces are not allowed in your password");
+       return false;
+   }
+}
+
