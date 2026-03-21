@@ -1,34 +1,41 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <!-- Including head partial -->
-    <%- include('./partials/head') -%> 
-  </head>
-  <body>
-    <%- include('./partials/navmenu') -%>
-    
+
+<head>
+  <!-- Including head partial -->
+  <%- include('./partials/head') -%>
+
+</head>
+
+<body>
+  <%- include('./partials/navmenu') -%>
+
     <!-- This h1 tag has embedded Javascript passing a title variable -->
-    <h1><%= title %></h1>
-<form action="/register" method="post">
-<label for="username">username:</label> <input id="username" name="username" type="text"><br><br>
-<label for="email">email:</label> <input id="email" name="email" type="email"><br><br>
-<label for="password">password:</label> <input id="password" name="password" type="password"><br><br>
-<label for="birthdate">birthdate:</label> <input id="birthdate" name="birthdate" type="date"><br><br>
-<label for="age">age:</label> <input id="age" name="age" min="10" max="100"  type="number"><br><br>
-<label for="interests">interests:</label> <br>
-<input id="interests" name="interests" type="checkbox" value="games">Games<br>
-<input id="interests" name="interests" type="checkbox" value="sports">Sports<br>
-<input id="interests" name="interests" type="checkbox" value="music">Music<br><br>
-<label for="grade">grade:</label><br>
-<input id="grade" name="grade" type="radio" value="9">9<br>
-<input id="grade" name="grade" type="radio" value="10">10<br>
-<input id="grade" name="grade" type="radio" value="11">11<br>
-<input id="grade" name="grade" type="radio" value="12">12<br><br>
+    <h1>
+      <%= title %>
+    </h1>
+    <form action="/register" method="post" onsubmit="return testPasswordStrength();">
+      <label for="username">username:</label> <input id="username" name="username" type="text" required><br><br>
+      <label for="email">email:</label> <input id="email" name="email" type="email" required><br><br>
+      <label for="password">password:</label> <input id="password" name="password" type="password" required> <span
+        id="pwstrength"></span><br><br>
+      <label for="birthdate">birthdate:</label> <input id="birthdate" name="birthdate" type="date" max="2026-02-01"><br><br>
+      <label for="age">age:</label> <input id="age" name="age" min="10" max="100" type="number"><br><br>
+      <label for="interests">interests:</label> <br>
+      <input id="interests" name="interests" type="checkbox" value="games">Games<br>
+      <input id="interests" name="interests" type="checkbox" value="sports">Sports<br>
+      <input id="interests" name="interests" type="checkbox" value="music">Music<br><br>
+      <label for="grade">grade:</label><br>
+      <input id="grade" name="grade" type="radio" value="9">9<br>
+      <input id="grade" name="grade" type="radio" value="10">10<br>
+      <input id="grade" name="grade" type="radio" value="11">11<br>
+      <input id="grade" name="grade" type="radio" value="12">12<br><br>
 
-<button type="submit">Submit</button>
+      <button type="submit">Submit</button>
 
-</form>
+    </form>
+    <script src="/javascripts/registerscript.js"></script>
 
+</body>
 
-  </body>
 </html>
