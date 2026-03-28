@@ -21,7 +21,12 @@ Password strength:
 
 <br><br>
 <label for="birthdate">birthdate:</label> <input id="birthdate" name="birthdate" type="date" required max="2026-03-20"><br><br>
-<label for="age">age:</label> <input id="age" name="age" min="10" max="100"  type="number"><br><br>
+<!-- Replacing age with gender 3/28/26 -->
+<label for="gender"> Gender: </label>
+<input id="gender" name="gender" type="radio" value="male" required> Male
+<input id="gender" name="gender" type="radio" value="female"> Female <br>
+<br>
+
 <label for="interests">interests:</label> <br>
 <input id="interests" name="interests" type="checkbox" value="games">Games<br>
 <input id="interests" name="interests" type="checkbox" value="sports">Sports<br>
@@ -35,6 +40,14 @@ Password strength:
 <button type="submit">Submit</button>
 
 </form>
+
+<p> Driver License Code: 
+  <% if (typeof licensecode !== 'undefined') { %>
+    <%= licensecode %> 
+  <% } %>
+  
+  </p>
+
 
     <script src="/javascripts/registerscript.js"></script> 
   </body>
