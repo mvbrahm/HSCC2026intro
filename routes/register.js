@@ -1,11 +1,14 @@
 var express = require('express');
 var router = express.Router();
+var { hashPassword, verifyPassword } = require('../utils/crypto');
 
 /* GET register page. */
 router.get('/', function (req, res, next) {
   res.render('register', { title: 'Register' , licensecode: "To be determined"});
 });
 
+
+/*
 router.post('/', function (req, res, next) {
   
   //Test form submission
@@ -53,6 +56,44 @@ router.post('/', function (req, res, next) {
   
   res.render('register', { title: 'Register' , licensecode: code});
 });
+*/
 
+router.post('/', function (req, res, next) {
+  
+  //Test form submission
+  if (process.env.PRODUCTION=="false") {
+    //console.log(req.body); 
+    console.log(req.body.birthdate);
+    console.log(typeof req.body.birthdate);
+    console.log(req.body.gender);
+  }
+
+  
+  let password=req.body.password;
+  let username=req.body.username;
+  let email=req.body.email;
+  try {
+    // Hash password
+    const { salt, key } = hashPassword(password);
+    if (process.env.PRODUCTION=="false") {
+      console.log("win"); 
+      console.log(salt);
+      console.log(key);
+      
+    } 
+    const userData = {
+      username,
+      email,
+      salt,
+      key
+    };
+    res.render('register', { title: 'Register' , licensecode: userData.salt});
+  }
+  catch(error) {
+    console.log(error)
+    res.render('register', { title: 'Register' , licensecode: "botch"});
+  }
+
+});
 
 module.exports = router;
