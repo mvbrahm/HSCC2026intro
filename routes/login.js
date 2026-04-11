@@ -18,12 +18,41 @@ router.post('/', async function (req, res, next) {
       console.log(usernameurl);       
   }
   let token=process.env.BEARER_TOKEN
-  
+
   const getResponse= await getWithBearerToken(usernameurl,token)
   if (process.env.PRODUCTION=="false") {
       console.log(getResponse);       
   } 
-  res.render('login', { title: 'Login' , result: getResponse.success});
+
+  if (!getResponse.success){
+    res.render('login', { title: 'Login' , result: "User not defined"});
+    return
+  }
+  //If user exists get salt
+  var salt=getResponse.user.salt;
+  if (process.env.PRODUCTION=="false") {
+      console.log(salt);       
+  }
+
+  var key=generateKey(password,salt)
+  //Test key
+  const keyData={
+    key
+  }
+  const keyURL="https://drive.api.hscc.bdpa.org/v1/users/" + username + "/auth"
+  const keyResponse=await postWithBearerToken(keyURL,token,keyData)
+ 
+  if (process.env.PRODUCTION=="false") {
+    console.log(keyResponse);       
+  }
+
+  if (keyResponse.success){
+    res.render('login', { title: 'Login' , result: "Login successful"});
+  }
+  else{
+    res.render('login', { title: 'Login' , result: "Incorrect password"});
+  }
+  
 });
 
 module.exports=router;
