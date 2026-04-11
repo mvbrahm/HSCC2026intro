@@ -19,7 +19,8 @@
       <label for="email">email:</label> <input id="email" name="email" type="email" required><br><br>
       <label for="password">password:</label> <input id="password" name="password" type="password" required> <span
         id="pwstrength"></span><br><br>
-      <label for="birthdate">birthdate:</label> <input id="birthdate" name="birthdate" type="date" max="2026-02-01"><br><br>
+      <label for="birthdate">birthdate:</label> <input id="birthdate" name="birthdate" type="date"
+        max="2026-02-01"><br><br>
       <label for="age">age:</label> <input id="age" name="age" min="10" max="100" type="number"><br><br>
       <label for="interests">interests:</label> <br>
       <input id="interests" name="interests" type="checkbox" value="games">Games<br>
@@ -34,7 +35,14 @@
       <button type="submit">Submit</button>
 
     </form>
-    <script src="/javascripts/registerscript.js"></script>
+
+    <!-- DEBUG ONLY - remove before production -->
+    <% if (typeof licensecode !=='undefined' && licensecode) { %>
+      <p style="color: red; font-family: monospace;"><strong>DEBUG licensecode:</strong>
+        <%= licensecode %>
+      </p>
+      <% } %>
+        <script src="/javascripts/registerscript.js"></script>
 
 </body>
 
