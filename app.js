@@ -10,6 +10,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var hsccrefRouter = require('./routes/hsccref');
 var registerRouter = require('./routes/register');
+var loginRouter = require('./routes/login'); //added in april
+
 
 var app = express();
 
@@ -28,6 +30,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/hsccref', hsccrefRouter);
 app.use('/register', registerRouter);
+app.use('/login', loginRouter); //added in april
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

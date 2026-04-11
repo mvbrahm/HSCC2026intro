@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var { hashPassword, verifyPassword } = require('../utils/crypto');
+var { postWithBearerToken} = require('../utils/APIrequests');
 
 /* GET register page. */
 router.get('/', function (req, res, next) {
@@ -8,7 +9,7 @@ router.get('/', function (req, res, next) {
 });
 
 
-/*
+/*  commented out, previous code from March
 router.post('/', function (req, res, next) {
   
   //Test form submission
@@ -58,7 +59,7 @@ router.post('/', function (req, res, next) {
 });
 */
 
-router.post('/', function (req, res, next) {
+router.post('/', async function (req, res, next) {
   
   //Test form submission
   if (process.env.PRODUCTION=="false") {
@@ -68,10 +69,11 @@ router.post('/', function (req, res, next) {
     console.log(req.body.gender);
   }
 
-  
+  // username and email will go directly to the api, password will be used to generate salt and key
   let password=req.body.password;
   let username=req.body.username;
   let email=req.body.email;
+
   try {
     // Hash password
     const { salt, key } = hashPassword(password);
@@ -87,7 +89,15 @@ router.post('/', function (req, res, next) {
       salt,
       key
     };
-    res.render('register', { title: 'Register' , licensecode: userData.salt});
+
+    var url='https://drive.api.hscc.bdpa.org/v1/users'
+    var token=process.env.BEARER_TOKEN
+    const createResponse = await postWithBearerToken(url, token, userData );
+    if (process.env.PRODUCTION=="false") {
+      console.log(createResponse);       
+    } 
+
+    res.render('register', { title: 'Register' , licensecode: createResponse.success});
   }
   catch(error) {
     console.log(error)
