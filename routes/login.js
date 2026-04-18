@@ -2,10 +2,16 @@ var express = require('express');
 var router = express.Router();
 var { generateKey} = require('../utils/crypto');
 var { getWithBearerToken, postWithBearerToken} = require('../utils/APIrequests');
+var {createToken, verifyToken}=require('../utils/usertoken');
 
 /* GET register page. */
-router.get('/', function (req, res, next) {
+router.get('/', verifyToken, function (req, res, next) {
+  if (res.locals.name){
+    res.redirect('/');
+  }
+  else{
   res.render('login', { title: 'Login' , result: "To be determined"});
+  }
 });
 
 router.post('/', async function (req, res, next) {
@@ -47,7 +53,8 @@ router.post('/', async function (req, res, next) {
   }
 
   if (keyResponse.success){
-    res.render('login', { title: 'Login' , result: "Login successful"});
+    token=createToken(username);  //Creating our auth token
+    res.redirect('/');
   }
   else{
     res.render('login', { title: 'Login' , result: "Incorrect password"});

@@ -20,6 +20,11 @@ body {
   color: var(--primary-text-color-dm);
 }
 
+.highcontrast {
+  background-color: var(--primary-bg-color-lm);
+  color: var(--primary-text-color-lm);
+}
+
 a {
   color: var(--link-color);
 }
@@ -39,6 +44,11 @@ td,th {
   padding: 1.5rem;
   border: 1px var(--accent-color) solid;
   margin: 1.5rem;
+}
+
+.highcontrast #bdpahistory{
+  background-color: var(--primary-bg-color-lm);
+  color: var(--primary-text-color-lm);
 }
 
 .linkssection {

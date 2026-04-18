@@ -3,10 +3,11 @@
   <head>
     <!-- Including head partial -->
     <%- include('./partials/head') -%> 
+    <script src="togglescript.js" ></script>
   </head>
   <body>
     <%- include('./partials/navmenu') -%>
-
+<div class="container">
     <h1> HSCC Reference Page </h1>
     <!-- Very basic page menu next -->
     <p id="pagemenu"> 
@@ -220,6 +221,7 @@
     <p> <a href="#pagemenu"> Back to top </a> </p>
     </div>
     
-    
+    </div>
+    <button id="contrast-toggle">Contrast Boost</button>
   </body>
 </html>

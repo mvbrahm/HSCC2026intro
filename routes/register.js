@@ -2,10 +2,16 @@ var express = require('express');
 var router = express.Router();
 var { hashPassword, verifyPassword } = require('../utils/crypto');
 var { postWithBearerToken} = require('../utils/APIrequests');
+var {verifyToken}=require('../utils/usertoken');
 
 /* GET register page. */
-router.get('/', function (req, res, next) {
-  res.render('register', { title: 'Register' , licensecode: "To be determined"});
+router.get('/', verifyToken, function (req, res, next) {
+  if (res.locals.name){
+    res.redirect('/');
+  }
+  else{
+    res.render('register', { title: 'Register' , licensecode: "To be determined"});
+  }
 });
 
 
