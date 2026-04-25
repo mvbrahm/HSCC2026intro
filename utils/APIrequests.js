@@ -68,7 +68,44 @@ function postWithBearerToken(url,token,data){
     })//End Promise
 }//End postWithBearerToken function
 
+// Update information (PUT) to an aPI
+// @param url (string) address to send information
+// @param token (string) authentication to access aPI
+// @param data (Object) the information to send to the aPI
+// @returns (Promise) results of PUT request
+function putWithBearerToken(url,token,data){
+
+    const options = {
+        method:"PUT",
+        headers: {
+            Authorization: `Bearer ${token}` , //These are forward ticks, not quotes!
+            "content-type": "application/json"
+            // Will we need content type?
+        }
+    }; //End Setting our headers...
+
+    return new Promise((resolve,reject) => {
+        const req=https.request(url,options,res=>{
+            let data = '';
+            res.on('data', chunk => {
+                data += chunk;
+            });
+            res.on('end', () => {
+                resolve(JSON.parse(data));
+            });
+        });
+                                                                                       
+        req.on('error', error => {
+            reject(error);
+        });
+                                                                                                                                                                                                                                                                                                                                
+        req.write(JSON.stringify(data));
+        req.end();
+    })//End Promise
+}//End putWithBearerToken function
+
 module.exports = {
     getWithBearerToken,
-    postWithBearerToken
+    postWithBearerToken,
+    putWithBearerToken
 }; 

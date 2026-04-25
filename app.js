@@ -12,7 +12,7 @@ var hsccrefRouter = require('./routes/hsccref');
 var registerRouter = require('./routes/register');
 var loginRouter = require('./routes/login'); //added in april
 var logoutRouter= require('./routes/logout');
-
+var dashboardRouter= require('./routes/dashboard');
 
 var app = express();
 
@@ -33,6 +33,7 @@ app.use('/hsccref', hsccrefRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter); //added in april
 app.use('/logout', logoutRouter);
+app.use('/dashboard', dashboardRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
