@@ -51,6 +51,11 @@ td,th {
   color: var(--primary-text-color-lm);
 }
 
+.high-contrast .nav-item ,.high-contrast .nav-link{
+  background-color: var(--primary-bg-color-lm);
+  color: var(--primary-text-color-lm);
+}
+
 .linkssection {
   background-color: var(--secondary-bg-color-dm);
   border: 1px var(--accent-color) solid;
