@@ -3,6 +3,7 @@ var router = express.Router();
 var { hashPassword, verifyPassword } = require('../utils/crypto');
 var { postWithBearerToken} = require('../utils/APIrequests');
 var {verifyToken}=require('../utils/usertoken');
+var {addUser}=require('../utils/sqltest');
 
 /* GET register page. */
 router.get('/', verifyToken, function (req, res, next) {
@@ -96,14 +97,17 @@ router.post('/', async function (req, res, next) {
       key
     };
 
-    var url='https://drive.api.hscc.bdpa.org/v1/users'
-    var token=process.env.BEARER_TOKEN
-    const createResponse = await postWithBearerToken(url, token, userData );
-    if (process.env.PRODUCTION=="false") {
-      console.log(createResponse);       
-    } 
+    addUser(username,'voter',email,salt,key);
 
-    res.render('register', { title: 'Register' , licensecode: createResponse.success});
+    //MODIFIED TO TEST SQLITE
+    // var url='https://drive.api.hscc.bdpa.org/v1/users'
+    // var token=process.env.BEARER_TOKEN
+    // const createResponse = await postWithBearerToken(url, token, userData );
+    // if (process.env.PRODUCTION=="false") {
+    //   console.log(createResponse);       
+    // } 
+
+    res.render('register', { title: 'Register' , licensecode: "Created?"});
   }
   catch(error) {
     console.log(error)
