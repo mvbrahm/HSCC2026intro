@@ -27,7 +27,7 @@ db.exec(`
   VALUES('mkesuper', 'super',
   'mkesuper@bdpamke.org',
   'a248affc4acb379431a293c4b8f6bb22',
-  'c94a8e1bfcb6f38fc1265aaa0c8f8fa7266d01c1f2e7186750869ce18cad0ab33a9d6c26625a847c3a8da790a0145410d7bd66cf5067ab72ee7728c879557abb')
+  '491de1ab5159880033812349e41eea73dac1ae537894801067ebc958a739fa99b056e265c531477cf5e137398029a20b2ddf5bf064f042cf805856f7fb571e7f')
   ON CONFLICT(username) DO UPDATE SET
     role=excluded.role,
     email=excluded.email,
