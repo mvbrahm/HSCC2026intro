@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "npm run test:backend && npm run test:e2e",
+    "test:backend": "jest",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "better-sqlite3": "^12.9.0",
@@ -17,5 +20,10 @@
     "jsonwebtoken": "^9.0.3",
     "mongodb": "^7.2.0",
     "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "jest": "^30.4.1",
+    "supertest": "^7.2.2"
   }
 }

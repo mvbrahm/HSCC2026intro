@@ -1,9 +1,14 @@
 // Import the better-sqlite3 library
 const Database = require('better-sqlite3');
 
+function openDatabase(){
+    const dbPath = process.env.DB_PATH || 'example.db';
+    return new Database(dbPath);
+}
+
 // Open (or create) an SQLite database file
 function createUserTable(){
-const db = new Database('example.db');
+const db = openDatabase();
 // console.log("Database created");
 
 // Create a new table called 'users'
@@ -35,33 +40,50 @@ db.exec(`
     key=excluded.key
     `);
 
+db.exec(`
+    INSERT INTO users(username,role,email,salt,key)
+  VALUES('mkematt2', 'voter',
+  'mkematt2@example.com',
+  'b9e56c4a5d77a3b74a5a1203d82364af',
+  'c8a799ecb86cf20885780e34bfcd54bfbdbc26c6d01f70d221527b3388de9f0911500e5459b09db4e6dfd83dd25cfddaa602bdce98e44e3093fbb0a5dfda8fe1')
+  ON CONFLICT(username) DO UPDATE SET
+    role=excluded.role,
+    email=excluded.email,
+    salt=excluded.salt,
+    key=excluded.key
+    `);
+
 console.log('Table created successfully');
+db.close();
 }
 
 function getAllUsers(){
-    const db = new Database('example.db');
+    const db = openDatabase();
     const selectall = db.prepare('SELECT * FROM users');
     const rows = selectall.all();
     console.log(rows);
+    db.close();
     return rows
 }
 
 function addUser(username,role,email,salt,key){
-    const db = new Database('example.db');
+    const db = openDatabase();
     const insert = db.prepare('INSERT INTO users (username,role,email,salt,key) VALUES (?, ?,?,?,?)');
 
     // Insert user data
     insert.run(username,role,email,salt,key);
+    db.close();
 }
 
 function getUser(username){
-    const db = new Database('example.db');
+    const db = openDatabase();
     const find=db.prepare('SELECT * FROM users where username=?');
-    rows=find.all(username)
+    const rows=find.all(username)
     console.log("TEST=",rows)
     if (process.env.PRODUCTION =='false'){
         console.log("Foo",rows)
     }
+    db.close();
     return rows
 }
 module.exports={createUserTable, getAllUsers,addUser,getUser}
