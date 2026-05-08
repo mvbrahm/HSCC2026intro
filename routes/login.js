@@ -1,40 +1,79 @@
-const express = require('express');
-const router = express.Router();
-const { generateKey, verifyPassword } = require('../utils/crypto');
-const { postWithBearerToken, getWithBearerToken } = require('../utils/APIrequests');
+var express = require('express');
+var router = express.Router();
+var { generateKey} = require('../utils/crypto');
+var { getWithBearerToken, postWithBearerToken} = require('../utils/APIrequests');
+var {createToken, verifyToken}=require('../utils/usertoken');
+var {getUser}=require('../utils/sqltest');
 
-router.get('/', function (req, res, next) {
-    res.render('login', { title: 'Login', result: "to be determined" });
+/* GET register page. */
+router.get('/', verifyToken, function (req, res, next) {
+  if (res.locals.name){
+    res.redirect('/');
+  }
+  else{
+  res.render('login', { title: 'Login' , result: "To be determined"});
+  }
 });
 
 router.post('/', async function (req, res, next) {
-    let username = req.body.username;
-    let password = req.body.password;
+  //Getting info from form
+  let password=req.body.password;
+  let username=req.body.username;
 
-    try {
-        var url = `https://drive.api.hscc.bdpa.org/v1/users/${username}`;
-        var token = process.env.BEARER_TOKEN;
+  // let usernameurl='https://drive.api.hscc.bdpa.org/v1/users/' + username
+  // if (process.env.PRODUCTION=="false") {
+  //     console.log(usernameurl);       
+  // }
+  // let token=process.env.BEARER_TOKEN
 
-        const userResponse = await getWithBearerToken(url, token);
+  // const getResponse= await getWithBearerToken(usernameurl,token)
+  // if (process.env.PRODUCTION=="false") {
+  //     console.log(getResponse);       
+  // } 
 
-        if (process.env.PRODUCTION == "false") {
-            console.log(JSON.stringify(userResponse));
-        }
+  // if (!getResponse.success){
+  //   res.render('login', { title: 'Login' , result: "User not defined"});
+  //   return
+  // }
+  // //If user exists get salt
+  // var salt=getResponse.user.salt;
+  // if (process.env.PRODUCTION=="false") {
+  //     console.log(salt);       
+  // }
 
-        // DEBUG: show raw API response to find correct structure
-        if (process.env.PRODUCTION == "false") {
-            return res.render('login', { title: 'Login', message: JSON.stringify(userResponse) });
-        }
+  // var key=generateKey(password,salt)
+  // //Test key
+  // const keyData={
+  //   key
+  // }
+  // const keyURL="https://drive.api.hscc.bdpa.org/v1/users/" + username + "/auth"
+  // const keyResponse=await postWithBearerToken(keyURL,token,keyData)
+ 
+  // if (process.env.PRODUCTION=="false") {
+  //   console.log(keyResponse);       
+  // }
 
-        const { salt, key } = userResponse;
-        const isValid = verifyPassword(password, salt, key);
+  rows=getUser(username);
+  console.log(rows.length);
 
-        res.render('login', { title: 'Login', message: `Auth result: ${isValid}` });
+  if (rows.length>0){
+    
+    salt=rows[0].salt;
+    var key=generateKey(password,salt)
+    console.log("KEY=",key,"\n",rows[0].key)
+    if (key==rows[0].key){
+      token=createToken(username);  //Creating our auth token
+      res.redirect('/');
     }
-    catch (error) {
-        console.log(error);
-        res.render('login', { title: 'Login', message: 'Error during login' });
+    // console.log(salt)
+    else{
+      res.render('login', { title: 'Login' , result: "Invalid Password"});
     }
+  }
+  else{
+    res.render('login', { title: 'Login' , result: "User does not exist"});
+  }
+  
 });
 
-module.exports = router;
+module.exports=router;

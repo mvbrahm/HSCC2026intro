@@ -1,15 +1,22 @@
 var express = require('express');
 var router = express.Router();
 var { hashPassword, verifyPassword } = require('../utils/crypto');
-var { postWithBearerToken } = require('../utils/APIrequests');
+var { postWithBearerToken} = require('../utils/APIrequests');
+var {verifyToken}=require('../utils/usertoken');
+var {addUser}=require('../utils/sqltest');
 
 /* GET register page. */
-router.get('/', function (req, res, next) {
-  res.render('register', { title: 'Register', licensecode: "To be determined" });
+router.get('/', verifyToken, function (req, res, next) {
+  if (res.locals.name){
+    res.redirect('/');
+  }
+  else{
+    res.render('register', { title: 'Register' , licensecode: "To be determined"});
+  }
 });
 
 
-/*
+/*  commented out, previous code from March
 router.post('/', function (req, res, next) {
   
   //Test form submission
@@ -60,28 +67,29 @@ router.post('/', function (req, res, next) {
 */
 
 router.post('/', async function (req, res, next) {
-
+  
   //Test form submission
-  if (process.env.PRODUCTION == "false") {
+  if (process.env.PRODUCTION=="false") {
     //console.log(req.body); 
     console.log(req.body.birthdate);
     console.log(typeof req.body.birthdate);
     console.log(req.body.gender);
   }
 
+  // username and email will go directly to the api, password will be used to generate salt and key
+  let password=req.body.password;
+  let username=req.body.username;
+  let email=req.body.email;
 
-  let password = req.body.password;
-  let username = req.body.username;
-  let email = req.body.email;
   try {
     // Hash password
     const { salt, key } = hashPassword(password);
-    if (process.env.PRODUCTION == "false") {
-      console.log("win");
+    if (process.env.PRODUCTION=="false") {
+      console.log("win"); 
       console.log(salt);
       console.log(key);
-
-    }
+      
+    } 
     const userData = {
       username,
       email,
@@ -89,15 +97,21 @@ router.post('/', async function (req, res, next) {
       key
     };
 
-    var url = 'https://drive.api.hscc.bdpa.org/v1/users'
-    var token = process.env.BEARER_TOKEN;
-    const createResponse = await postWithBearerToken(url, token, userData);
+    addUser(username,'voter',email,salt,key);
 
-    res.render('register', { title: 'Register', licensecode: JSON.stringify(createResponse) });
+    //MODIFIED TO TEST SQLITE
+    // var url='https://drive.api.hscc.bdpa.org/v1/users'
+    // var token=process.env.BEARER_TOKEN
+    // const createResponse = await postWithBearerToken(url, token, userData );
+    // if (process.env.PRODUCTION=="false") {
+    //   console.log(createResponse);       
+    // } 
+
+    res.render('register', { title: 'Register' , licensecode: "Created?"});
   }
-  catch (error) {
+  catch(error) {
     console.log(error)
-    res.render('register', { title: 'Register', licensecode: "botch" });
+    res.render('register', { title: 'Register' , licensecode: "botch"});
   }
 
 });

@@ -2,11 +2,11 @@
 <html>
   <head>
     <!-- Including head partial -->
-    <%- include('./partials/head') -%> 
+    <%- include('./partials/head') -%>
   </head>
   <body>
     <%- include('./partials/navmenu') -%>
-    
+    <div class="container">
     <!-- This h1 tag has embedded Javascript passing a title variable -->
     <h1><%= title %></h1>
     <h2>2026 Milwaukee HSCC season</h2>
@@ -19,5 +19,8 @@
          <li> <a href="hsccref"> HSCC Reference Page </a> </li>
        </ul> <!-- Bulleted List ends -->
     </div> <!-- linkssection division ends -->
+    <button id="contrast-toggle">Contrast Boost</button>
+  </div> <!-- end containter -->
+  <script src="/javascripts/togglescript.js" ></script>
   </body>
 </html>

@@ -1,34 +1,24 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <!-- Including head partial -->
-    <%- include('./partials/head') -%>
+    <%- include('./partials/head') -%> 
 
-</head>
-
-<body>
+  </head>
+  <body>
     <%- include('./partials/navmenu') -%>
 
-        <h1>
-            <%= title %>
-        </h1>
-        <form action="/login" method="post">
-            <label for="username">username:</label> <input id="username" name="username" type="text" required><br><br>
-            <label for="password">password:</label> <input id="password" name="password" type="password"
-                required><br><br>
+    <!-- This h1 tag has embedded Javascript passing a title variable -->
+    <h1><%= title %></h1>
+    <p> <%= result %></p>
 
-            <button type="submit">Login</button>
-
-        </form>
-
-        <!-- DEBUG ONLY - remove before production -->
-        <% if (typeof message !=='undefined' && message) { %>
-            <p style="color: red; font-family: monospace;"><strong>DEBUG:</strong>
-                <%= message %>
-            </p>
-            <% } %>
+    <form action="/login" method="POST">
+        <label for="username"> Username: </label>
+        <input type="text" id="username" name="username">
+        <label for="password"> Password: </label>
+        <input type="password" id="password" name="password">
+        <button type="submit"> Submit </button>
+    </form>
 
 </body>
-
 </html>

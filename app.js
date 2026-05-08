@@ -3,15 +3,16 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-// require dotenv to use .env file for environment variables
-require('dotenv').config(); 
+require('dotenv').config();  //attaches .env file to program
 
 // MUST CREATE ROUTER FOR EACH NEW PAGE
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var hsccrefRouter = require('./routes/hsccref');
 var registerRouter = require('./routes/register');
-var loginRouter = require('./routes/login');
+var loginRouter = require('./routes/login'); //added in april
+var logoutRouter= require('./routes/logout');
+var dashboardRouter= require('./routes/dashboard');
 
 var app = express();
 
@@ -30,7 +31,10 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/hsccref', hsccrefRouter);
 app.use('/register', registerRouter);
-app.use('/login', loginRouter);
+app.use('/login', loginRouter); //added in april
+app.use('/logout', logoutRouter);
+app.use('/dashboard', dashboardRouter);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

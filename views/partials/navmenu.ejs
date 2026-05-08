@@ -16,12 +16,29 @@
                     <li class="nav-item">
                         <a class="nav-link" href="hsccref"> HSCC Reference</a>
                     </li>
+                    <!-- Conditional on whether user is logged on or not -->
+                    <!-- If user is not in, we should include registration and login -->
+                    <!-- typeof name === undefined is true if name doesn't exist at all  -->
+                    <!-- || is an OR operation.  OR is true if at least one of the conditions is true -->
+                    <!-- !name is true if name is blank -->
+                    <% if ((typeof name === 'undefined') || (!name)) { %>
                     <li class="nav-item">
-                        <a class="nav-link" href="/register"> Registration Form </a>
+                        <a class="nav-link" href="register"> Registration Form </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"> bdpadrive </a>
+                        <a class="nav-link" href="login"> Login </a>
                     </li>
+                    <% } %>
+                    <!-- If user is in, set up logout and dashboard -->
+                    <% if ((typeof name !== 'undefined') && (name)) { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout"> Logout </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard"> Hello, <%= name %> </a>
+                    </li>
+                    <% } %>
+
                 </ul>
             </div>
             
